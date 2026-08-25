@@ -1,5 +1,5 @@
 import React from 'react'
-import LogoImg from "../../public/Logo.png"
+import LogoImg from "/Logo.png"
 
 function Logo({...props}) {
   return (
