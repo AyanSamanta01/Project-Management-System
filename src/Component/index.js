@@ -5,6 +5,8 @@ import SignUp from "./SignUp"
 import Logo from "./ReusableComponent/Logo"
 import Footer from "./Footer/Footer"
 import Header from "./Header/Header"
+import Dashboard from "./Dashboard"
+import CreateProjectForm from "./CreateProjectForm"
 
 export {
     Input,
@@ -13,5 +15,7 @@ export {
     SignUp,
     Logo,
     Footer,
-    Header
+    Header,
+    Dashboard,
+    CreateProjectForm
 }

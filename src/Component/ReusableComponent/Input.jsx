@@ -5,13 +5,14 @@ function Input({
     label,
     type,
     className,
+    labelClassname,
     ...props
 }) {
 
 const id =useId();
   return (
     <div className='flex flex-col'>
-    {label && <label className="block text-lg font-semibold"  htmlFor={id}>{label}
+    {label && <label className={`block text-lg font-semibold ${labelClassname}`}  htmlFor={id}>{label}
               </label>}
               <input
               type={type}
