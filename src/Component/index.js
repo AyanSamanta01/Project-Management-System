@@ -7,6 +7,7 @@ import Footer from "./Footer/Footer"
 import Header from "./Header/Header"
 import Dashboard from "./Dashboard"
 import CreateProjectForm from "./CreateProjectForm"
+import Loader from "./Loader"
 
 export {
     Input,
@@ -17,5 +18,6 @@ export {
     Footer,
     Header,
     Dashboard,
-    CreateProjectForm
+    CreateProjectForm,
+    Loader
 }
