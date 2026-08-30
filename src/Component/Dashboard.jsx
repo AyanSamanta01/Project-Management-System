@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react";
+import { TaskCard, ProjectCard } from "./index";
 
 function Dashboard() {
- const projects = [
+  const projects = [
     {
       id: 1,
       name: "Portfolio Website",
@@ -48,12 +49,12 @@ function Dashboard() {
 
   const totalTasks = projects.reduce(
     (total, project) => total + project.tasks,
-    0
+    0,
   );
 
   const completedTasks = projects.reduce(
     (total, project) => total + project.completed,
-    0
+    0,
   );
 
   const pendingTasks = totalTasks - completedTasks;
@@ -93,7 +94,6 @@ function Dashboard() {
           <h2 className="mt-2 text-3xl font-bold">{pendingTasks}</h2>
         </div>
       </div>
-
       {/* Projects */}
       <section className="mt-8">
         <div className="mb-4 flex items-center justify-between">
@@ -104,46 +104,11 @@ function Dashboard() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => {
-            const progress =
-              project.tasks === 0
-                ? 0
-                : Math.round((project.completed / project.tasks) * 100);
-
-            return (
-              <div
-                key={project.id}
-                className="rounded-xl bg-white p-5 shadow-sm"
-              >
-                <h3 className="text-xl font-semibold">{project.name}</h3>
-
-                <p className="mt-2 text-sm text-gray-500">
-                  {project.tasks} Tasks
-                </p>
-
-                {/* Progress */}
-                <div className="mt-5">
-                  <div className="mb-2 flex justify-between text-sm">
-                    <span className="text-gray-500">Progress</span>
-                    <span className="font-medium">{progress}%</span>
-                  </div>
-
-                  <div className="h-2 overflow-hidden rounded-full bg-gray-200">
-                    <div
-                      className="h-full rounded-full bg-black"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                </div>
-
-                <button className="mt-5 text-sm font-medium text-blue-600">
-                  Open Project →
-                </button>
-              </div>
-            );
-          })}
-        </div>
+        <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </ul>
       </section>
 
       {/* Tasks */}
@@ -152,34 +117,7 @@ function Dashboard() {
 
         <div className="overflow-hidden rounded-xl bg-white shadow-sm">
           {tasks.map((task) => (
-            <div
-              key={task.id}
-              className="flex items-center justify-between border-b p-4 last:border-b-0"
-            >
-              <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  readOnly
-                />
-
-                <span
-                  className={
-                    task.completed
-                      ? "text-gray-400 line-through"
-                      : "font-medium"
-                  }
-                >
-                  {task.title}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-6 text-sm">
-                <span className="text-gray-500">{task.priority}</span>
-
-                <span className="text-gray-500">{task.due}</span>
-              </div>
-            </div>
+            <TaskCard task={task} />
           ))}
         </div>
       </section>
@@ -187,4 +125,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard
+export default Dashboard;
