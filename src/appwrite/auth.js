@@ -9,47 +9,52 @@ class AuthService {
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
 
-    this.account=new Account(this.client);  
+    this.account = new Account(this.client);
   }
 
-  async createAccount({name,email,password}){
+  async createAccount({ name, email, password }) {
     try {
-        const userCreate=await this.account.create(ID.unique(),name,email,password)
-        if(userCreate){
-          return this.loginAccount(email,password)
-        }else{
-          return userCreate
-        }
+      const userCreate = await this.account.create(
+        ID.unique(),
+        name,
+        email,
+        password,
+      );
+      if (userCreate) {
+        return this.loginAccount(email, password);
+      } else {
+        return userCreate;
+      }
     } catch (error) {
-        throw error
+      throw error;
     }
   }
 
-  async loginAccount({email,password}){
+  async loginAccount({ email, password }) {
     try {
-        return await this.account.createEmailPasswordSession(email,password)
+      return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-        throw error
+      throw error;
     }
   }
 
-  async logoutAccount(){
+  async logoutAccount() {
     try {
-        return await this.account.deleteSession("current")
+      return await this.account.deleteSession("current");
     } catch (error) {
-        throw error;
+      console.log(error);
     }
   }
 
-  async authenticationState(){
+  async authenticationState() {
     try {
-        return await this.account.get()
+      return await this.account.get();
     } catch (error) {
-        throw error
+      console.log(error);
     }
-    return null
+    return null;
   }
 }
 
-const authService=new AuthService();
+const authService = new AuthService();
 export default authService;
