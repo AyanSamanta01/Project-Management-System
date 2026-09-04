@@ -1,5 +1,6 @@
 import React from 'react'
 import { useId } from 'react'
+import { forwardRef } from 'react';
 
 function Input({
     label,
@@ -7,7 +8,7 @@ function Input({
     className,
     labelClassname,
     ...props
-}) {
+},ref) {
 
 const id =useId();
   return (
@@ -18,6 +19,7 @@ const id =useId();
               type={type}
               className={className}
               id={id}
+              ref={ref}
               {...props}
               >
               </input>
@@ -25,4 +27,4 @@ const id =useId();
   )
 }
 
-export default Input
+export default forwardRef(Input)

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Container(children) {
+function Container({children}) {
   return (
     <div
     className='w-full h-auto'>{children}</div>
