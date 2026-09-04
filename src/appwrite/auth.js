@@ -16,12 +16,12 @@ class AuthService {
     try {
       const userCreate = await this.account.create(
         ID.unique(),
-        name,
         email,
         password,
+        name,
       );
       if (userCreate) {
-        return this.loginAccount(email, password);
+        return this.loginAccount({email, password});
       } else {
         return userCreate;
       }
