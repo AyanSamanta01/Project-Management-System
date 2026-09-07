@@ -1,8 +1,10 @@
 import React from 'react'
+import Container from "../Container/Container"
+import {ProjectForm} from "../Component"
 
 function CreateProjectFormPage() {
   return (
-    <div>CreateProjectFormPage</div>
+    <Container><ProjectForm/></Container>
   )
 }
 

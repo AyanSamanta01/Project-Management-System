@@ -6,7 +6,7 @@ function Loader() {
       <div role="status">
         <svg
           aria-hidden="true"
-          class="inline w-35 h-35 text-blue-100 animate-spin fill-purple"
+          className="inline w-35 h-35 text-blue-100 animate-spin fill-purple"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ function Loader() {
             fill="currentFill"
           />
         </svg>
-        <span class="sr-only">Loading...</span>
+        <span className="sr-only">Loading...</span>
       </div>
     </section>
   )

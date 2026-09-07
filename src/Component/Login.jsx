@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Button } from "./index";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
@@ -18,7 +18,7 @@ function Login() {
     try {
       const userlogin = await authService.loginAccount(data);
       if (userlogin) {
-        userData = await authService.authenticationState();
+        const userData = await authService.authenticationState();
         if (userData) {
           dispatch(login(userData));
           navigate("/");

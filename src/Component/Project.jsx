@@ -1,12 +1,13 @@
 import React from 'react'
 
-function Project() {
+function Project({projectData}) {
+  console.log(projectData)
   const project = {
-    name: "Portfolio Website",
+    name: projectData.projectTitle ,
     description:
-      "My personal portfolio website where I showcase my projects and skills.",
-    startDate: "25 Aug 2026",
-    deadline: "30 Sep 2026",
+      projectData.projectDescription,
+    startDate: projectData.startDate,
+    deadline: projectData.deadline,
   };
 
   const tasks = [

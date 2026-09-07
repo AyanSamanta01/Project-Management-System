@@ -1,17 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 function ProjectCard({ project }) {
-  const progress =
-    project.tasks === 0
-      ? 0
-      : Math.round((project.completed / project.tasks) * 100);
+  const navigate=useNavigate()
+  // const progress =
+  //   project.tasks === 0
+      // /? 0
+  //     : Math.round((project.completed / project.tasks) * 100);
   return project ? (
-    <li key={project.id} className="rounded-xl bg-white p-5 shadow-sm">
-      <h3 className="text-xl font-semibold">{project.name}</h3>
+    
+    <div> 
+      <h3 className="text-xl font-semibold">{project.projectTitle}</h3>
 
-      <p className="mt-2 text-sm text-gray-500">{project.tasks} Tasks</p>
+      <p className="mt-2 text-sm text-gray-500">{project.projectDescription} Tasks</p>
 
-      <div className="mt-5">
+      {/* <div className="mt-5">
         <div className="mb-2 flex justify-between text-sm">
           <span className="text-gray-500">Progress</span>
           <span className="font-medium">{progress}%</span>
@@ -23,12 +26,15 @@ function ProjectCard({ project }) {
             style={{ width: `${progress}%` }}
           />
         </div>
-      </div>
+      </div> */}
 
-      <button className="mt-5 text-sm font-medium text-blue-600">
+      <button className="mt-5 text-sm font-medium text-blue-600 hover:cursor-pointer active:text-blue-400"
+      onClick={()=>navigate(`/project/${project.$id}`)}
+      >
         Open Project →
       </button>
-    </li>
+      </div>
+    
   ) : null;
 }
 export default ProjectCard;

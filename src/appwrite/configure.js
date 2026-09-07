@@ -17,8 +17,8 @@ class Configure {
     projectTitle,
     projectDescription,
     userId,
-    createdAt,
-    deleteAt,
+    startDate,
+    deadline,
   }) {
     try {
       return await this.database.createDocument(
@@ -29,8 +29,8 @@ class Configure {
           projectTitle,
           projectDescription,
           userId,
-          createdAt,
-          deleteAt,
+          startDate,
+          deadline,
         },
       );
     } catch (error) {
@@ -41,7 +41,7 @@ class Configure {
 
   async updateProject(
     slug,
-    { projectTitle, projectDescription, createdAt, deleteAt },
+    { projectTitle, projectDescription, startDate, deadline },
   ) {
     try {
       return await this.database.updateDocument(
@@ -51,8 +51,8 @@ class Configure {
         {
           projectTitle,
           projectDescription,
-          createdAt,
-          deleteAt,
+          startDate,
+          deadline,
         },
       );
     } catch (error) {
@@ -112,7 +112,7 @@ class Configure {
     try {
       return await this.database.updateDocument(
         conf.appwriteDatabaseId,
-        conf.appwriteProjectsCollectionId,
+        conf.appwriteTasksCollectionId,
         taskId,
         {
           taskTitle,
@@ -153,6 +153,19 @@ class Configure {
     }
   }
 
+  async getProject(slug) {
+    try {
+      return await this.database.getDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteProjectsCollectionId,
+        slug
+      );
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   async getAllTask() {
     try {
       return await this.database.listDocuments(
@@ -165,12 +178,12 @@ class Configure {
     }
   }
 
-  async getAllTaskFPP(slug){
+  async getAllTaskFPP(slug) {
     try {
       return await this.database.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteTasksCollectionId,
-        slug
+        slug,
       );
     } catch (error) {
       console.log(error);
@@ -178,3 +191,6 @@ class Configure {
     }
   }
 }
+
+const configure = new Configure();
+export default configure;
