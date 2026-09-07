@@ -4,6 +4,7 @@ import CreateProjectFormPage from "./CreateProjectFormPage"
 import DashboardPage from "./DashboardPage"
 import MyTasksPage from "./MyTasksPage"
 import ProjectOverview from "./ProjectOverview"
+import CreateTaskFormPage from "./CreateTaskFormPage"
 
 export {
     LoginPage,
@@ -11,5 +12,6 @@ export {
     CreateProjectFormPage,
     DashboardPage,
     MyTasksPage,
-    ProjectOverview
+    ProjectOverview,
+    CreateTaskFormPage
 }

@@ -6,7 +6,7 @@ import App from './App.jsx'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Routes } from 'react-router';
 import {Provider} from "react-redux"
 import {store} from "./store/store.js"
-import {LoginPage,SignupPage,DashboardPage,MyTasksPage,CreateProjectFormPage,ProjectOverview} from "./pages"
+import {LoginPage,SignupPage,DashboardPage,MyTasksPage,CreateProjectFormPage,ProjectOverview,CreateTaskFormPage} from "./pages"
 import {Authentication} from "./Component"
 
 const router=createBrowserRouter(
@@ -19,8 +19,8 @@ const router=createBrowserRouter(
       <Route path='/' element={<DashboardPage/>}/>
       <Route path='/my-tasks' element={<MyTasksPage/>}/>
       <Route path='/create-project' element={<CreateProjectFormPage/>}/>
-      <Route path='/project/:slug' element={<ProjectOverview/>}/>
-      {/* <Route path='' element={kjk}/> */}
+      <Route path='/:slug' element={<ProjectOverview/>}/>
+      <Route path='/:slug/create-post' element={<CreateTaskFormPage/>}/>
     </Route>
     </>
   )

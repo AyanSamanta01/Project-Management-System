@@ -1,47 +1,53 @@
 import React, { useCallback, useEffect } from "react";
-import { Input, Button,Textarea } from "./index";
+import { Input, Button, Textarea } from "./index";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import configure from "../appwrite/configure";
-import {createTodo} from "../store/projectSlice"
+import { createTodo } from "../store/projectSlice";
 
 function ProjectForm({ project }) {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userFetchedData = useSelector((state) => state.auth.userData);
+
   useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}, []);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   const { register, handleSubmit, setValue, watch } = useForm({
     projectTitle: project?.projectTitle || "",
     slug: project?.slug || "",
     projectDescription: project?.projectDescription || "",
-    startDate:project?.startDate || "",
+    startDate: project?.startDate || "",
     deadline: project?.deadline || "",
   });
 
-const userFetchedData=useSelector((state)=>state.auth.userData)
-
   const submit = async (data) => {
-    if(project){
-      const updateProjectData=await configure.updateProject(project.$id,{...data})
-      if(updateProjectData){ 
-        dispatch(createTodo(updateProjectData.docments))
-        navigate("/")
+    if (project) {
+      const updateProjectData = await configure.updateProject(project.$id, {
+        ...data,
+      });
+      if (updateProjectData) {
+        dispatch(createTodo(updateProjectData.docments));
+        navigate(`/${updateProjectData.$id}`);
       }
-        // navigate(`/post/${updateProjectData.$id}`)
-    }else{
-  const createProjectData=await configure.createProject({...data,userId:userFetchedData.$id})
-      if(createProjectData) {
-        const newProjectData=await configure.getAllProject()
-        dispatch(createTodo(newProjectData.documents))
-        navigate("/")}
-        // navigate(`/post/${updateProjectData.$id}`)
+    } else {
+      const createProjectData = await configure.createProject({
+        ...data,
+        userId: userFetchedData.$id,
+      });
+      if (createProjectData) {
+        const newProjectData = await configure.getAllProject();
+        dispatch(createTodo(newProjectData.documents));
+        navigate(`/${createProjectData.$id}`);
+      }
     }
   };
+
   const slugTransform = useCallback((value) => {
     if (value)
       return value
@@ -111,13 +117,13 @@ const userFetchedData=useSelector((state)=>state.auth.userData)
           {/* Description */}
           <div className="mb-5">
             <Textarea
-             label="Description"
+              label="Description"
               placeholder="Describe your project..."
               rows="5"
               className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
-              {...register("projectDescription",{required: true})}
+              {...register("projectDescription", { required: true })}
             />
-            </div>
+          </div>
 
           {/* Dates */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -127,7 +133,7 @@ const userFetchedData=useSelector((state)=>state.auth.userData)
                 labelClassname="mb-2 block text-sm font-medium text-gray-700"
                 type="date"
                 className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
-                {...register("startDate",{required: true})}
+                {...register("startDate", { required: true })}
               />
             </div>
 
@@ -137,7 +143,7 @@ const userFetchedData=useSelector((state)=>state.auth.userData)
                 labelClassname="mb-2 block text-sm font-medium text-gray-700"
                 type="date"
                 className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-black"
-                {...register("deadline",{required: true})}
+                {...register("deadline", { required: true })}
               />
             </div>
           </div>

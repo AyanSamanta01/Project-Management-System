@@ -1,5 +1,5 @@
 import conf from "../conf/conf";
-import { Query, Databases, Client } from "appwrite";
+import { Query, Databases, Client,ID } from "appwrite";
 
 class Configure {
   client = new Client();
@@ -76,26 +76,25 @@ class Configure {
 
   async createTask({
     projectId,
-    taskId,
     userId,
     taskTitle,
     taskDescription,
     priority,
-    createdAt,
+    status,
     dueDate,
   }) {
     try {
       return await this.database.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteTasksCollectionId,
-        taskId,
+        ID.unique(),
         {
           projectId,
           userId,
           taskTitle,
           taskDescription,
           priority,
-          createdAt,
+          status,
           dueDate,
         },
       );
