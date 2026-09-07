@@ -5,13 +5,13 @@ const initialState = {
 };
 
 export const projectSlice = createSlice({
-  name: "todo",
+  name: "project",
   initialState,
   reducers: {
     createTodo: (state, action) => {
       state.ProjectTodos=action.payload
     },
-    removeTodoTodo: (state) => {
+    removeTodo: (state) => {
       state.ProjectTodos=""
     },
   },

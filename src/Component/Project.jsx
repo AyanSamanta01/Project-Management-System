@@ -1,7 +1,10 @@
 import React from 'react'
+import { useNavigate, useParams } from 'react-router';
 
 function Project({projectData}) {
-  console.log(projectData)
+  const navigate=useNavigate()
+  const {slug}=useParams()
+
   const project = {
     name: projectData.projectTitle ,
     description:
@@ -95,7 +98,8 @@ function Project({projectData}) {
               </p>
             </div>
 
-            <button className="rounded-lg bg-black px-5 py-3 font-medium text-white hover:bg-gray-800">
+            <button className="rounded-lg bg-black px-5 py-3 font-medium text-white hover:bg-gray-800"
+            onClick={()=>navigate(`/${slug}/create-post`)}>
               + Add Task
             </button>
           </div>

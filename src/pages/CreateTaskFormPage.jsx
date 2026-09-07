@@ -1,8 +1,10 @@
 import React from 'react'
+import Container from "../Container/Container"
+import {CreateTasksForm} from "../Component"
 
 function CreateTaskFormPage() {
   return (
-    <div>CreateTaskFormPage</div>
+    <Container><CreateTasksForm/></Container>
   )
 }
 

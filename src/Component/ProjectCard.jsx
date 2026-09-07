@@ -29,7 +29,7 @@ function ProjectCard({ project }) {
       </div> */}
 
       <button className="mt-5 text-sm font-medium text-blue-600 hover:cursor-pointer active:text-blue-400"
-      onClick={()=>navigate(`/project/${project.$id}`)}
+      onClick={()=>navigate(`${project.$id}`)}
       >
         Open Project →
       </button>
