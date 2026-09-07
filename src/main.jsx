@@ -1,26 +1,27 @@
+import "flowbite";
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-// import App from './App.jsx'
-import "flowbite";
+import App from './App.jsx'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Routes } from 'react-router';
 import {Provider} from "react-redux"
 import {store} from "./store/store.js"
-import {LoginPage,SignupPage} from "./pages"
+import {LoginPage,SignupPage,DashboardPage,MyTasksPage,CreateProjectFormPage,ProjectOverview} from "./pages"
+import {Authentication} from "./Component"
 
 const router=createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='/signup' element={<SignupPage/>}/>
-      <Route path='/login' element={<LoginPage/>}/>
+      <Route path='/signup' element={<Authentication authentication={false}><SignupPage/></Authentication>}/>
+      <Route path='/login' element={<Authentication authentication={false}><LoginPage/></Authentication>}/>
 
-      {/* <Route path='/' element={<App/>}> */}
-      {/* <Route path='' element={kjk}/>
-      <Route path='' element={kjk}/>
-      <Route path='' element={kjk}/>
-      <Route path='' element={kjk}/>
-      <Route path='' element={kjk}/> */}
-    {/* </Route> */}
+      <Route path='/' element={<App/>}>
+      <Route path='/' element={<DashboardPage/>}/>
+      <Route path='/my-tasks' element={<MyTasksPage/>}/>
+      <Route path='/create-project' element={<CreateProjectFormPage/>}/>
+      <Route path='/project/:slug' element={<ProjectOverview/>}/>
+      {/* <Route path='' element={kjk}/> */}
+    </Route>
     </>
   )
 )
