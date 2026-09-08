@@ -1,53 +1,7 @@
 import React,{useState} from 'react'
 
-function MyTasks() {
-   const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Create Navbar",
-      description: "Create responsive navigation bar",
-      project: "Portfolio Website",
-      priority: "High",
-      status: "Todo",
-      dueDate: "Today",
-    },
-    {
-      id: 2,
-      title: "Fix Login Page",
-      description: "Fix validation and authentication issues",
-      project: "Project Manager",
-      priority: "High",
-      status: "In Progress",
-      dueDate: "Today",
-    },
-    {
-      id: 3,
-      title: "Setup Appwrite",
-      description: "Create database and collections",
-      project: "Project Manager",
-      priority: "Medium",
-      status: "Todo",
-      dueDate: "Tomorrow",
-    },
-    {
-      id: 4,
-      title: "Create Dashboard",
-      description: "Build the project dashboard",
-      project: "Project Manager",
-      priority: "Medium",
-      status: "Todo",
-      dueDate: "30 Aug 2026",
-    },
-    {
-      id: 5,
-      title: "Create About Page",
-      description: "Create the about section",
-      project: "Portfolio Website",
-      priority: "Low",
-      status: "Completed",
-      dueDate: "25 Aug 2026",
-    },
-  ]);
+function MyTasks({tasks}) {
+  console.log(tasks)
 
   const changeStatus = (taskId, newStatus) => {
     setTasks((prevTasks) =>
@@ -63,15 +17,15 @@ function MyTasks() {
   };
 
   const todoTasks = tasks.filter(
-    (task) => task.status === "Todo"
+    (task) => task.status === "todo"
   );
 
   const inProgressTasks = tasks.filter(
-    (task) => task.status === "In Progress"
+    (task) => task.status === "inProgress"
   );
 
   const completedTasks = tasks.filter(
-    (task) => task.status === "Completed"
+    (task) => task.status === "completed"
   );
 
   return (
@@ -98,7 +52,7 @@ function MyTasks() {
             </p>
 
             <p className="mt-2 text-3xl font-bold">
-              {todoTasks.length}
+              {tasks.length}
             </p>
           </div>
 
@@ -124,8 +78,8 @@ function MyTasks() {
 
         </div>
 
-        {/* Filters */}
-        <div className="mb-6 flex flex-wrap gap-3">
+        {/* TODO: Advance Features  */}
+        {/* <div className="mb-6 flex flex-wrap gap-3">
 
           <input
             type="text"
@@ -146,14 +100,14 @@ function MyTasks() {
             <option>Low</option>
           </select>
 
-        </div>
+        </div> */}
 
         {/* Task List */}
         <div className="space-y-4">
 
           {tasks.map((task) => (
             <div
-              key={task.id}
+              key={task.$id}
               className="rounded-xl bg-white p-5 shadow-sm"
             >
 
@@ -164,13 +118,13 @@ function MyTasks() {
 
                   <input
                     type="checkbox"
-                    checked={task.status === "Completed"}
+                    checked={task.status === "completed"}
                     onChange={() =>
                       changeStatus(
-                        task.id,
-                        task.status === "Completed"
-                          ? "Todo"
-                          : "Completed"
+                        task.$id,
+                        task.status === "completed"
+                          ? "todo"
+                          : "completed"
                       )
                     }
                     className="mt-1 h-5 w-5"
@@ -179,20 +133,20 @@ function MyTasks() {
                   <div>
                     <h2
                       className={`text-lg font-semibold ${
-                        task.status === "Completed"
+                        task.status === "completed"
                           ? "text-gray-400 line-through"
                           : "text-gray-900"
                       }`}
                     >
-                      {task.title}
+                      {task.taskTitle}
                     </h2>
 
                     <p className="mt-1 text-sm text-gray-500">
-                      {task.description}
+                      {task.taskDescription}
                     </p>
 
                     <p className="mt-2 text-sm text-gray-400">
-                      Project: {task.project}
+                      Project: {task.projectId}
                     </p>
                   </div>
 
@@ -223,10 +177,10 @@ function MyTasks() {
               {/* Action */}
               <div className="mt-4 border-t pt-4">
 
-                {task.status === "Todo" && (
+                {task.status === "todo" && (
                   <button
                     onClick={() =>
-                      changeStatus(task.id, "In Progress")
+                      changeStatus(task.$id, "inProgress")
                     }
                     className="text-sm font-medium text-blue-600 hover:text-blue-800"
                   >
@@ -234,10 +188,10 @@ function MyTasks() {
                   </button>
                 )}
 
-                {task.status === "In Progress" && (
+                {task.status === "inProgress" && (
                   <button
                     onClick={() =>
-                      changeStatus(task.id, "Completed")
+                      changeStatus(task.id, "completed")
                     }
                     className="text-sm font-medium text-green-600 hover:text-green-800"
                   >
@@ -245,10 +199,10 @@ function MyTasks() {
                   </button>
                 )}
 
-                {task.status === "Completed" && (
+                {task.status === "completed" && (
                   <button
                     onClick={() =>
-                      changeStatus(task.id, "Todo")
+                      changeStatus(task.$id, "todo")
                     }
                     className="text-sm font-medium text-gray-500 hover:text-gray-700"
                   >
@@ -264,8 +218,8 @@ function MyTasks() {
         </div>
 
       </div>
-    </main>
-  );
+     </main>
+   );
 }
 
 export default MyTasks

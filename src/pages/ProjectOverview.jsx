@@ -8,12 +8,21 @@ import { Loader } from "../Component";
 function ProjectOverview() {
   const [loader, setLoader] = useState(true);
   const { slug } = useParams();
-  const [projectData, setProjectData] = useState("");
+  const [projectData, setProjectData] = useState([]);
+  const [taskData,setTaskData]=useState([])
   const navigate = useNavigate();
+
+    useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   useEffect(() => {
     configure.getProject(slug).then((data) => {
       if (data) {
+        configure.getAllTaskbyProject(slug).then((taskData)=>setTaskData(taskData.documents))
         setProjectData(data);
         setLoader(false);
       } else {
@@ -22,18 +31,12 @@ function ProjectOverview() {
     });
   }, []);
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, []);
 
   return loader ? (
     <Loader />
   ) : (
     <Container>
-      <Project projectData={projectData} />
+      <Project projectData={projectData} taskData={taskData}  />
     </Container>
   );
 }

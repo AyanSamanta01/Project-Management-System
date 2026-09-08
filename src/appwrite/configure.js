@@ -177,6 +177,21 @@ class Configure {
     }
   }
 
+  async getAllTaskbyProject(projectId){
+    try {
+      return await this.database.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteTasksCollectionId,
+        [
+          Query.equal("projectId",projectId)
+        ]
+      );
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
+
   async getAllTaskFPP(slug) {
     try {
       return await this.database.listDocuments(

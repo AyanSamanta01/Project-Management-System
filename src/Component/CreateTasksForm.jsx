@@ -22,15 +22,15 @@ function CreateTasksForm({ task }) {
   const priority = [
     {
       name: "Low",
-      value: "low",
+      value: "Low",
     },
     {
       name: "Medium",
-      value: "medium",
+      value: "Medium",
     },
     {
       name: "High",
-      value: "high",
+      value: "High",
     },
   ];
 
@@ -75,7 +75,7 @@ function CreateTasksForm({ task }) {
       if (createProjectTask) {
         const TaskData = await configure.getAllTask();
         if (TaskData) {
-          dispatch(createTask(TaskData));
+          dispatch(createTask(TaskData.documents));
           navigate(`/${slug}`);
         }
       }
