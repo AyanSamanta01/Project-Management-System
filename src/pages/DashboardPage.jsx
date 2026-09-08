@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 
 function DashboardPage() {
   const projectList = useSelector((state) => state.projectTodo.ProjectTodos);
+  const taskList=useSelector((state)=>state.taskTodo.tasks)
   const userData=useSelector((state)=>state.auth.userData)
+  
 
     useEffect(() => {
     window.scrollTo({
@@ -16,7 +18,7 @@ function DashboardPage() {
 
   return (
     <Container>
-      <Dashboard userCredentials={userData} projects={projectList} />
+      <Dashboard userCredentials={userData} projects={projectList} tasks={taskList} />
     </Container>
   );
 }

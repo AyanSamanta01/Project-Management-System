@@ -2,33 +2,11 @@ import { useNavigate } from "react-router";
 import { TaskCard, ProjectCard } from "./index";
 
 
-function Dashboard({userCredentials,projects}) {
+function Dashboard({userCredentials,projects,tasks}) {
  
   const navigate=useNavigate()
 
-  const tasks = [
-    {
-      id: 1,
-      title: "Create Navbar",
-      priority: "High",
-      due: "Today",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Build Login Page",
-      priority: "Medium",
-      due: "Tomorrow",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Setup Database",
-      priority: "Low",
-      due: "Completed",
-      completed: true,
-    },
-  ];
+  
 
   const totalTasks = projects.reduce(
     (total, project) => total + project.tasks,

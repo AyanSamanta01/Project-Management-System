@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate, useParams } from 'react-router';
 
-function Project({projectData}) {
+function Project({projectData,taskData}) {
   const navigate=useNavigate()
   const {slug}=useParams()
 
@@ -13,40 +13,6 @@ function Project({projectData}) {
     deadline: projectData.deadline,
   };
 
-  const tasks = [
-    {
-      id: 1,
-      title: "Create Navbar",
-      description: "Create responsive navigation bar",
-      status: "Todo",
-      priority: "High",
-      assignedTo: "Ayan",
-    },
-    {
-      id: 2,
-      title: "Create Homepage",
-      description: "Build the main homepage",
-      status: "In Progress",
-      priority: "High",
-      assignedTo: "Rahul",
-    },
-    {
-      id: 3,
-      title: "Create About Page",
-      description: "Create the about section",
-      status: "Completed",
-      priority: "Medium",
-      assignedTo: "Ayan",
-    },
-    {
-      id: 4,
-      title: "Make Responsive",
-      description: "Make the website responsive",
-      status: "Todo",
-      priority: "Medium",
-      assignedTo: "Sayan",
-    },
-  ];
 
   const members = [
     {
@@ -66,17 +32,17 @@ function Project({projectData}) {
     },
   ];
 
-  const totalTasks = tasks.length;
+  const totalTasks = taskData.length;
 
-  const completedTasks = tasks.filter(
+  const completedTasks = taskData.filter(
     (task) => task.status === "Completed",
   ).length;
 
-  const inProgressTasks = tasks.filter(
+  const inProgressTasks = taskData.filter(
     (task) => task.status === "In Progress",
   ).length;
 
-  const todoTasks = tasks.filter((task) => task.status === "Todo").length;
+  const todoTasks = taskData.filter((task) => task.status === "Todo").length;
 
   const progress =
     totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
@@ -127,17 +93,17 @@ function Project({projectData}) {
               <h2 className="text-lg font-semibold">Project Progress</h2>
 
               <p className="mt-1 text-sm text-gray-500">
-                {completedTasks} of {totalTasks} tasks completed
+                {completedTasks || "NA"} of {totalTasks} tasks completed
               </p>
             </div>
 
-            <span className="text-2xl font-bold">{progress}%</span>
+            <span className="text-2xl font-bold">{progress || "NA"}%</span>
           </div>
 
           <div className="mt-4 h-3 overflow-hidden rounded-full bg-gray-200">
             <div
               className="h-full rounded-full bg-black"
-              style={{ width: `${progress}%` }}
+              style={{ width: `${progress }%` }}
             />
           </div>
         </section>
@@ -147,19 +113,19 @@ function Project({projectData}) {
           <div className="rounded-xl bg-white p-5 shadow-sm">
             <p className="text-sm text-gray-500">Todo</p>
 
-            <p className="mt-2 text-3xl font-bold">{todoTasks}</p>
+            <p className="mt-2 text-3xl font-bold">{todoTasks || "NA"}</p>
           </div>
 
           <div className="rounded-xl bg-white p-5 shadow-sm">
             <p className="text-sm text-gray-500">In Progress</p>
 
-            <p className="mt-2 text-3xl font-bold">{inProgressTasks}</p>
+            <p className="mt-2 text-3xl font-bold">{inProgressTasks || "NA"}</p>
           </div>
 
           <div className="rounded-xl bg-white p-5 shadow-sm">
             <p className="text-sm text-gray-500">Completed</p>
 
-            <p className="mt-2 text-3xl font-bold">{completedTasks}</p>
+            <p className="mt-2 text-3xl font-bold">{completedTasks || "NA"}</p>
           </div>
         </section>
 
@@ -174,13 +140,13 @@ function Project({projectData}) {
           </div>
 
           <div className="overflow-hidden rounded-xl bg-white shadow-sm">
-            {tasks.map((task) => (
-              <div key={task.id} className="border-b p-5 last:border-b-0">
+            {taskData.map((task) => (
+              <div key={task.$id} className="border-b p-5 last:border-b-0">
                 <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                   {/* Task Information */}
                   <div>
                     <h3 className="font-semibold text-gray-900">
-                      {task.title}
+                      {task.taskTitle}
                     </h3>
 
                     <p className="mt-1 text-sm text-gray-500">
@@ -198,9 +164,10 @@ function Project({projectData}) {
                       {task.status}
                     </span>
 
-                    <span className="text-sm text-gray-500">
-                      {task.assignedTo}
+                    <span className="px-3 py-1 text-xs font-medium text-gray-500">
+                      {task.dueDate}
                     </span>
+
                   </div>
                 </div>
               </div>
@@ -209,7 +176,7 @@ function Project({projectData}) {
         </section>
 
         {/* Members */}
-        <section className="mt-6">
+        {/* <section className="mt-6">
           <h2 className="mb-4 text-2xl font-bold">Project Members</h2>
 
           <div className="rounded-xl bg-white shadow-sm">
@@ -236,7 +203,7 @@ function Project({projectData}) {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );
