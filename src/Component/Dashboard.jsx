@@ -8,17 +8,15 @@ function Dashboard({userCredentials,projects,tasks}) {
 
   
 
-  const totalTasks = projects.reduce(
-    (total, project) => total + project.tasks,
-    0,
+  const totalTasks = tasks.length
+
+  const completedTasks = tasks.filter(
+    (task)=>{const completeTask=task.status==="completed"
+      return completeTask
+    }
   );
 
-  const completedTasks = projects.reduce(
-    (total, project) => total + project.completed,
-    0,
-  );
-
-  const pendingTasks = totalTasks - completedTasks;
+  const pendingTasks = totalTasks - completedTasks.length;
 
   return (
     <main className="min-h-screen bg-gray-100 p-6">
@@ -42,17 +40,17 @@ function Dashboard({userCredentials,projects,tasks}) {
 
         <div className="rounded-xl bg-white p-5 shadow-sm">
           <p className="text-sm text-gray-500">Total Tasks</p>
-          <h2 className="mt-2 text-3xl font-bold">{totalTasks || "NA"} </h2>
+          <h2 className="mt-2 text-3xl font-bold">{totalTasks || 0} </h2>
         </div>
 
         <div className="rounded-xl bg-white p-5 shadow-sm">
           <p className="text-sm text-gray-500">Completed</p>
-          <h2 className="mt-2 text-3xl font-bold">{completedTasks || "NA"}</h2>
+          <h2 className="mt-2 text-3xl font-bold">{completedTasks.length}</h2>
         </div>
 
         <div className="rounded-xl bg-white p-5 shadow-sm">
           <p className="text-sm text-gray-500">Pending</p>
-          <h2 className="mt-2 text-3xl font-bold">{pendingTasks|| "NA"}</h2>
+          <h2 className="mt-2 text-3xl font-bold">{pendingTasks|| 0}</h2>
         </div>
       </div>
       {/* Projects */}
@@ -80,7 +78,7 @@ function Dashboard({userCredentials,projects,tasks}) {
 
         <div className="overflow-hidden rounded-xl bg-white shadow-sm">
           {tasks.map((task) => (
-            <TaskCard task={task} key={task.id}/>
+            <TaskCard task={task} key={task.$id}/>
           ))}
         </div>
       </section>
