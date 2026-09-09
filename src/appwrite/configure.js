@@ -106,7 +106,7 @@ class Configure {
 
   async updateTask(
     taskId,
-    { taskTitle, taskDescription, priority, createdAt, dueDate },
+    { taskTitle, taskDescription, priority, status, dueDate },
   ) {
     try {
       return await this.database.updateDocument(
@@ -117,7 +117,7 @@ class Configure {
           taskTitle,
           taskDescription,
           priority,
-          createdAt,
+          status,
           dueDate,
         },
       );

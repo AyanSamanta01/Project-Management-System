@@ -32,20 +32,18 @@ function Project({projectData,taskData}) {
     },
   ];
 
-  const totalTasks = taskData.length;
+  
+  const totalTasks=taskData?.length
 
-  const completedTasks = taskData.filter(
-    (task) => task.status === "Completed",
-  ).length;
+  const completedTasks= taskData?.filter((task)=>{return task.status==="completed"}).length
 
   const inProgressTasks = taskData.filter(
-    (task) => task.status === "In Progress",
+    (task) => task.status === "inProgress",
   ).length;
 
-  const todoTasks = taskData.filter((task) => task.status === "Todo").length;
+const todoTasks = taskData.filter((task) => task.status === "todo").length;
 
-  const progress =
-    totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+  const progress=Math.floor((completedTasks/totalTasks)*100)
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -93,17 +91,17 @@ function Project({projectData,taskData}) {
               <h2 className="text-lg font-semibold">Project Progress</h2>
 
               <p className="mt-1 text-sm text-gray-500">
-                {completedTasks || "NA"} of {totalTasks} tasks completed
+                {taskData.length>0 ? <p>{completedTasks} of {totalTasks} tasks completed</p>: "Add Tasks To Watch The Progress"}
               </p>
             </div>
 
-            <span className="text-2xl font-bold">{progress || "NA"}%</span>
+            <span className="text-2xl font-bold">{taskData.length>0 ? <p>{progress}%</p>: "No Tasks Declared"}</span>
           </div>
 
           <div className="mt-4 h-3 overflow-hidden rounded-full bg-gray-200">
             <div
               className="h-full rounded-full bg-black"
-              style={{ width: `${progress }%` }}
+              style={{ width: `${progress || 0}%` }}
             />
           </div>
         </section>
@@ -113,19 +111,19 @@ function Project({projectData,taskData}) {
           <div className="rounded-xl bg-white p-5 shadow-sm">
             <p className="text-sm text-gray-500">Todo</p>
 
-            <p className="mt-2 text-3xl font-bold">{todoTasks || "NA"}</p>
+            <p className="mt-2 text-3xl font-bold">{todoTasks || 0}</p>
           </div>
 
           <div className="rounded-xl bg-white p-5 shadow-sm">
             <p className="text-sm text-gray-500">In Progress</p>
 
-            <p className="mt-2 text-3xl font-bold">{inProgressTasks || "NA"}</p>
+            <p className="mt-2 text-3xl font-bold">{inProgressTasks || 0}</p>
           </div>
 
           <div className="rounded-xl bg-white p-5 shadow-sm">
             <p className="text-sm text-gray-500">Completed</p>
 
-            <p className="mt-2 text-3xl font-bold">{completedTasks || "NA"}</p>
+            <p className="mt-2 text-3xl font-bold">{completedTasks || 0}</p>
           </div>
         </section>
 
