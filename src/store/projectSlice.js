@@ -12,11 +12,11 @@ export const projectSlice = createSlice({
       state.ProjectTodos=action.payload
     },
     removeTodo: (state) => {
-      state.ProjectTodos=""
+      state.ProjectTodos=[""]
     },
   },
 });
 
-export const { createTodo } = projectSlice.actions;
+export const { createTodo,removeTodo } = projectSlice.actions;
 
 export default projectSlice.reducer;

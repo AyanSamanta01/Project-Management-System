@@ -12,7 +12,7 @@ export const taskSlice=createSlice({
             state.tasks=action.payload
         },
         removeTask: (state)=>{
-            state.tasks=""
+            state.tasks=[""]
         },
         
 

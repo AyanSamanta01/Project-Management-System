@@ -1,11 +1,24 @@
 import configure from "../appwrite/configure";
-import { createTask } from "../store/taskSlice";
+import { createTask, removeTask } from "../store/taskSlice";
 import { useDispatch } from "react-redux";
 
 function MyTasks({ tasks }) {
   const dispatch = useDispatch();
 
   const todoTasks = tasks.filter((task) => task.status === "todo").length;
+
+  const deleteTask = async (task) => {
+    try {
+      const deleteTask = await configure.deleteTask(task.$id);
+      if (deleteTask) {
+        dispatch(removeTask());
+        const allTaskFetch = await configure.getAllTask();
+        if (allTaskFetch) dispatch(createTask(allTaskFetch.documents));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const inProgressTasks = tasks.filter(
     (task) => task.status === "inProgress",
@@ -159,7 +172,7 @@ function MyTasks({ tasks }) {
               </div>
 
               {/* Action */}
-              <div className="mt-4 border-t pt-4">
+              <div className="mt-4 border-t flex flex-row justify-between pt-4">
                 {task.status === "todo" && (
                   <button
                     onClick={() => TaskManagementButtonHandler(task)}
@@ -186,6 +199,13 @@ function MyTasks({ tasks }) {
                     Reopen Task
                   </button>
                 )}
+
+                <button
+                  className="px-4 py-2 text-red-500 font-semibold rounded shadow-md active:shadow-sm shadow-black border-none hover:cursor-pointer"
+                  onClick={() => deleteTask(task)}
+                >
+                  → Delete Task
+                </button>
               </div>
             </div>
           ))}

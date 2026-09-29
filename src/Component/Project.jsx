@@ -1,18 +1,18 @@
-import React from 'react'
-import { useNavigate, useParams } from 'react-router';
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { DelDecision } from "./index";
 
-function Project({projectData,taskData}) {
-  const navigate=useNavigate()
-  const {slug}=useParams()
+function Project({ projectData, taskData }) {
+  const [delSessionActive, setDelSessionActive] = useState(false);
+  const navigate = useNavigate();
+  const { slug } = useParams();
 
   const project = {
-    name: projectData.projectTitle ,
-    description:
-      projectData.projectDescription,
+    name: projectData.projectTitle,
+    description: projectData.projectDescription,
     startDate: projectData.startDate,
     deadline: projectData.deadline,
   };
-
 
   const members = [
     {
@@ -32,18 +32,19 @@ function Project({projectData,taskData}) {
     },
   ];
 
-  
-  const totalTasks=taskData?.length
+  const totalTasks = taskData?.length;
 
-  const completedTasks= taskData?.filter((task)=>{return task.status==="completed"}).length
+  const completedTasks = taskData?.filter((task) => {
+    return task.status === "completed";
+  }).length;
 
   const inProgressTasks = taskData.filter(
     (task) => task.status === "inProgress",
   ).length;
 
-const todoTasks = taskData.filter((task) => task.status === "todo").length;
+  const todoTasks = taskData.filter((task) => task.status === "todo").length;
 
-  const progress=Math.floor((completedTasks/totalTasks)*100)
+  const progress = Math.floor((completedTasks / totalTasks) * 100);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -62,24 +63,36 @@ const todoTasks = taskData.filter((task) => task.status === "todo").length;
               </p>
             </div>
 
-            <button className="rounded-lg bg-black px-5 py-3 font-medium text-white hover:bg-gray-800"
-            onClick={()=>navigate(`/${slug}/create-post`)}>
+            <button
+              className="rounded-lg bg-black px-5 py-3 font-medium text-white hover:bg-gray-800"
+              onClick={() => navigate(`/${slug}/create-post`)}
+            >
               + Add Task
             </button>
           </div>
 
           {/* Project Dates */}
-          <div className="mt-6 flex flex-wrap gap-8 border-t pt-5">
-            <div>
-              <p className="text-sm text-gray-500">Start Date</p>
+          <div className="mt-6 flex flex-row justify-between border-t pt-5">
+            <div className="flex flex-wrap gap-8">
+              <div>
+                <p className="text-sm text-gray-500">Start Date</p>
 
-              <p className="mt-1 font-medium">{project.startDate}</p>
+                <p className="mt-1 font-medium">{project.startDate}</p>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-500">Deadline</p>
+
+                <p className="mt-1 font-medium">{project.deadline}</p>
+              </div>
             </div>
-
             <div>
-              <p className="text-sm text-gray-500">Deadline</p>
-
-              <p className="mt-1 font-medium">{project.deadline}</p>
+              <button
+                className="rounded-lg bg-red-500 px-5 py-3 font-medium text-white active:bg-red-400"
+                onClick={() => setDelSessionActive(true)}
+              >
+                Delete Project
+              </button>
             </div>
           </div>
         </section>
@@ -90,12 +103,20 @@ const todoTasks = taskData.filter((task) => task.status === "todo").length;
             <div>
               <h2 className="text-lg font-semibold">Project Progress</h2>
 
-              <p className="mt-1 text-sm text-gray-500">
-                {taskData.length>0 ? <p>{completedTasks} of {totalTasks} tasks completed</p>: "Add Tasks To Watch The Progress"}
-              </p>
+              <div className="mt-1 text-sm text-gray-500">
+                {taskData.length > 0 ? (
+                  <p>
+                    {completedTasks} of {totalTasks} tasks completed
+                  </p>
+                ) : (
+                  "Add Tasks To Watch The Progress"
+                )}
+              </div>
             </div>
 
-            <span className="text-2xl font-bold">{taskData.length>0 ? <p>{progress}%</p>: "No Tasks Declared"}</span>
+            <span className="text-2xl font-bold">
+              {taskData.length > 0 ? <p>{progress}%</p> : "No Tasks Declared"}
+            </span>
           </div>
 
           <div className="mt-4 h-3 overflow-hidden rounded-full bg-gray-200">
@@ -165,7 +186,6 @@ const todoTasks = taskData.filter((task) => task.status === "todo").length;
                     <span className="px-3 py-1 text-xs font-medium text-gray-500">
                       {task.dueDate}
                     </span>
-
                   </div>
                 </div>
               </div>
@@ -202,9 +222,14 @@ const todoTasks = taskData.filter((task) => task.status === "todo").length;
             ))}
           </div>
         </section> */}
+        {delSessionActive && (
+          <section>
+            <DelDecision project={projectData} setDelSessionActive={setDelSessionActive} />
+          </section>
+        )}
       </div>
     </div>
   );
 }
 
-export default Project
+export default Project;

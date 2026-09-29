@@ -81,7 +81,7 @@ function Login() {
             </div>
             <Button
               name="Login"
-              className="bg-blue-400 h-9 w-30 font-semibold font-serif rounded-xl mt-12 flex justify-center items-center tracking-widest"
+              className="bg-blue-400 active:bg-blue-300 h-9 w-30 font-semibold font-serif rounded-xl mt-12 flex justify-center items-center tracking-widest"
               type="submit"
             />
           </div>

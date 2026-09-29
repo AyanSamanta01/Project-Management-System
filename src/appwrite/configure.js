@@ -140,6 +140,29 @@ class Configure {
     }
   }
 
+  async deleteAllTaskbyProject(projectId){
+    try {
+       const tasks = await this.database.listDocuments(
+      conf.appwriteDatabaseId,
+      conf.appwriteTasksCollectionId,
+      [
+        Query.equal("projectId", projectId)
+      ]
+    );
+
+    for (const task of tasks.documents) {
+      await this.database.deleteDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteTasksCollectionId,
+        task.$id
+      );
+    }return true;
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
+
   async getAllProject() {
     try {
       return await this.database.listDocuments(

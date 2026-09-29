@@ -16,6 +16,7 @@ import MyTasks from "./MyTasks"
 import Project from "./Project"
 import CreateTasksForm from "./CreateTasksForm"
 import Select from "./ReusableComponent/Select";
+import DelDecision from "./ReusableComponent/DelDecision"
 
 
 export {
@@ -37,5 +38,5 @@ export {
   Project,
   CreateTasksForm,
   Select,
-  
+  DelDecision
 };
